@@ -9,10 +9,24 @@
     <version>1.0</version>
     <vendor/>
      <configurationParameters>
-      
-   </configurationParameters>
+      <configurationParameter>
+        <name>SimilarityMetric</name>
+        <description>the similarity metric by which the query and documents are compared
+
+Could be: jaccard, dice, or cosine
+cosine is default</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
     <configurationParameterSettings>
-      
+      <nameValuePair>
+        <name>SimilarityMetric</name>
+        <value>
+          <string>cosine</string>
+        </value>
+      </nameValuePair>
     </configurationParameterSettings>
     <typeSystemDescription>
       <imports>            

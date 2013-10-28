@@ -175,3 +175,6 @@ your
 yours
 yourself
 yourselves
+,
+;
+.
