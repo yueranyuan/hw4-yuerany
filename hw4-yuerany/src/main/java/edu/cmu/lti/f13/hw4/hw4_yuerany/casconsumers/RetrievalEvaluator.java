@@ -18,12 +18,22 @@ import org.apache.uima.util.ProcessTrace;
 
 import edu.cmu.lti.f13.hw4.hw4_yuerany.typesystems.Document;
 
-
+/**
+ * evaluates the feature vectors produced by our pipeline
+ * uses a specified similarity metric to compute similarity scores for documents for each query
+ * after the documents are scored, they are ranked (per query)
+ * MRR is done to aggregate the ranks to produce an aggregate score of our pipeline
+ * @author yueran
+ *
+ */
 public class RetrievalEvaluator extends CasConsumer_ImplBase {
 	
-	protected Map<Integer, Query> queries;
-	protected SimilarityMetric similarityMetric;
+	protected Map<Integer, Query> queries; // structured storage of queries and results
+	protected SimilarityMetric similarityMetric; // the similarity metric computer we use
 	
+	/**
+	 * initializes the similarity metrics and reads the parameter settings
+	 */
 	public void initialize() throws ResourceInitializationException {
 	  queries = new HashMap<Integer, Query> ();
 	  
@@ -41,6 +51,11 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
     }
 	}
 
+	/**
+	 * save the document that passes through in a converted structured format
+	 * for ease of processing
+	 * See the classes Query and FeatureVector for more details
+	 */
 	@Override
 	public void processCas(CAS aCas) throws ResourceProcessException {
 
@@ -51,11 +66,11 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 			throw new ResourceProcessException(e);
 		}
 
+		// convert the document annotations over to a more convenient format
+		// and store by query
 		FSIterator<Annotation> it = jcas.getAnnotationIndex(Document.type).iterator();
-	
 		if (it.hasNext()) {
 			Document doc = (Document) it.next();
-			
 			int qid = doc.getQueryID();
 			FeatureVector fv = new FeatureVector(doc);
 			Query q;
@@ -70,6 +85,13 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 
 	}
 
+	/**
+	 * for each query:
+	 *   compute the similarity scores of the query to each answer
+	 *   figure out the rank of the correct answer
+	 * 
+	 * then compute an MRR over all queries to get an aggregate score
+	 */
 	@Override
 	public void collectionProcessComplete(ProcessTrace arg0)
 			throws ResourceProcessException, IOException {
@@ -113,6 +135,12 @@ public class RetrievalEvaluator extends CasConsumer_ImplBase {
 		System.out.println(" (MRR) Mean Reciprocal Rank ::" + metric_mrr);
 	}
 	
+	/**
+	 * use the specified metric to compute similarity
+	 * @param queryVector  the feature vector for the query
+	 * @param docVector    the feature vector for the potential answer
+	 * @return
+	 */
 	private double computeSimilarity(Map<String, Integer> queryVector,
       Map<String, Integer> docVector) {
 	  return similarityMetric.Compare(queryVector, docVector);

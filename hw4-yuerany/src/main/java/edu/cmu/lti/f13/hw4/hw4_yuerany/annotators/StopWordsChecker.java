@@ -5,10 +5,22 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * uses a stopword list to check if a word is a stop word
+ * @author yueran
+ *
+ */
 public class StopWordsChecker {
   
   private ArrayList<String> stopwords;
   
+  /**
+   * uses a stopword list to check if a word is a stop word
+   * expected file format:
+   * [word]\n[word]\n[word]
+   * @param fileLocation the location of the file storing the stop words
+   * @throws Exception
+   */
   public StopWordsChecker(String fileLocation) throws Exception {
     stopwords = new ArrayList<String>();
     String line;
@@ -29,6 +41,11 @@ public class StopWordsChecker {
     br=null;
   }
   
+  /**
+   * checks if the given word is in the stopword list
+   * @param word  to check
+   * @return  whether it's a stopword
+   */
   public boolean Check(String word) {
     return stopwords.contains(word);
   }

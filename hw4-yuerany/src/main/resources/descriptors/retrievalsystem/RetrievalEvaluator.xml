@@ -5,7 +5,10 @@
   <annotatorImplementationName>edu.cmu.lti.f13.hw4.hw4_yuerany.casconsumers.RetrievalEvaluator</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>RetrievalEvaluator</name>
-    <description/>
+    <description>evaluates the feature vectors produced by our pipeline
+uses a specified similarity metric to compute similarity scores for documents for each query
+after the documents are scored, they are ranked (per query)
+MRR is done to aggregate the ranks to produce an aggregate score of our pipeline</description>
     <version>1.0</version>
     <vendor/>
      <configurationParameters>

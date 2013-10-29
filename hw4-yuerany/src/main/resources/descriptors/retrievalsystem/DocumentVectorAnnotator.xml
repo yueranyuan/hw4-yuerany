@@ -5,7 +5,11 @@
   <annotatorImplementationName>edu.cmu.lti.f13.hw4.hw4_yuerany.annotators.DocumentVectorAnnotator</annotatorImplementationName>  
   <analysisEngineMetaData>
     <name>DocumentVector</name>
-    <description/>
+    <description>Annotates the document with the tokenlist.  A number of manipulations could be specified for
+the tokenlist.
+One key thing to note is that the tokenList could have the same word split across multiple
+entries.  e.g. there could be 2 entries for 'look', each with a different frequency count.
+This is okay, and makes the processing easier.  The entries are combined in the evaluator.</description>
     <version>1.0</version>
     <vendor/>
     <configurationParameters>
