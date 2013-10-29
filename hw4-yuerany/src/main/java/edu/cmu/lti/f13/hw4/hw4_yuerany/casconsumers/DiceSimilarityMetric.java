@@ -13,7 +13,6 @@ import java.util.Map;
  * 
  * this is similar to jaccard metric and extends the methods from jaccard
  * @author yueran
- *
  */
 public class DiceSimilarityMetric extends JaccardSimilarityMetric {
   

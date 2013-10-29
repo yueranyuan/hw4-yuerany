@@ -29,12 +29,7 @@ public class StopWordsChecker {
        throw new IllegalArgumentException("Error opening stopwords.txt");
     }
     BufferedReader br = new BufferedReader(new InputStreamReader(swUrl.openStream()));
-    int lineCnt = 0;
     while ((line = br.readLine()) != null)   {
-      lineCnt ++;
-      if (lineCnt < 3) {
-        continue;
-      }
       stopwords.add(line);
     }
     br.close();
